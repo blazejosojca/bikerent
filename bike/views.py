@@ -5,7 +5,8 @@ from django.views.generic import (
     ListView,
     CreateView,
     FormView,
-    View
+    View,
+    DetailView
 )
 
 from .models import Bike, Localization
@@ -27,3 +28,16 @@ class AddingBikeFormView(CreateView):
               'model_name',
               'frame_number',
               'bike_type']
+
+class AddingBikeFormView(CreateView):
+    template_name = 'bike/localization_form.html'
+    model = Bike
+    fields = ['producer_name',
+              'model_name',
+              'frame_number',
+              'bike_type']
+
+
+
+class BikeDetailView(View):
+    pass

@@ -12,4 +12,12 @@ class AddingBikeForm(forms.ModelForm):
                   'bike_type']
 
 
+class AddingLocalizationForm(forms.ModelForm):
+    class Meta:
+        model = Localization
+        fields = ['city',
+                  'street',
+                  'building_number',
+                  ]
+
 
