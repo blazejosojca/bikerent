@@ -1,12 +1,12 @@
 from django.db import models
 
 TYPES = (
-    ("0", "unknowns"),
-    ("1", "city bike"),
-    ("2", "cross bike"),
-    ("3", "trekking bike"),
-    ("4", "mountain terrain bike"),
-    ("5", "bike for kids")
+    (0, "unknowns"),
+    (1, "city bike"),
+    (2, "cross bike"),
+    (3, "trekking bike"),
+    (4, "mountain terrain bike"),
+    (5, "bike for kids")
 )
 
 
@@ -17,6 +17,11 @@ class Bike(models.Model):
     bike_type = models.IntegerField(choices=TYPES)
     is_rented = models.BooleanField(default=False)
     is_functional = models.BooleanField(default=True)
+
+    def __str__(self):
+        return "{} {} {}".format(self.producer_name,
+                                 self.model_name,
+                                 self.bike_type)
 
 
 class Localization(models.Model):

@@ -1,0 +1,20 @@
+{% extends 'bike/bike_base.html' %}
+
+{% block title %}
+    Bike4All | {{ block.super}}
+{% endblock %}
+
+
+{% block content %}
+<h2>Bikes:</h2>
+        <ol>
+            {% for bike in bike_list %}
+                <li>
+                    <a href="{{ bike.href }}">{{ bike }}</a>
+                </li>
+            {% empty %}
+                <li>No such bikes</li>
+            {% endfor %}
+        </ol>
+
+{% endblock %}
