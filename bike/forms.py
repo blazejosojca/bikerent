@@ -3,7 +3,7 @@ from bike.models import Bike, Localization
 
 from django import forms
 
-class AddingBikeForm(forms.ModelForm):
+class BikeForm(forms.ModelForm):
     class Meta:
         model = Bike
         fields = ['producer_name',
@@ -12,7 +12,7 @@ class AddingBikeForm(forms.ModelForm):
                   'bike_type']
 
 
-class AddingLocalizationForm(forms.ModelForm):
+class LocalizationForm(forms.ModelForm):
     class Meta:
         model = Localization
         fields = ['city',

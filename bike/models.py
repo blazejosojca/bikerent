@@ -20,8 +20,7 @@ class Bike(models.Model):
     is_functional = models.BooleanField(default=True)
 
     def get_absolute_url(self):
-        return reverse("bikes_detail",
-                       kwargs={'pk': self.pk})
+        return reverse("bikes_list")
 
     def __str__(self):
         return "{} {} {}".format(self.producer_name,
@@ -36,4 +35,7 @@ class Localization(models.Model):
     phone_number = models.IntegerField(blank=True, null=True)
     email = models.CharField(max_length=64, blank=True, null=True)
     #bike_quant = models.IntegerField(default=0)
+
+    def get_absolute_url(self):
+        return reverse("bike_base")
 
