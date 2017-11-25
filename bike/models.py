@@ -18,3 +18,10 @@ class Bike(models.Model):
     is_rented = models.BooleanField(default=False)
     is_functional = models.BooleanField(default=True)
 
+
+class Localization(models.Model):
+    city = models.CharField(max_length=64)
+    street = models.CharField(max_length=64)
+    building_number = models.CharField(max_length=64)
+    #bike_quant = models.IntegerField(default=0)
+

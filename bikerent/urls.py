@@ -15,9 +15,11 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
+#from client.views import views
 from django.conf import settings
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    #url(r'^bike4all/', include('bike4all.urls')),
+    # url(r'^bike4all/', index, name="index")
+    # url(r'^bike4all/', include('bike4all.urls')),
 ]
