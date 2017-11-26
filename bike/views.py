@@ -40,16 +40,6 @@ class CreateBikeView(CreateView):
               'bike_type']
 
 
-class CreateLocalizationView(CreateView):
-    template_name = 'bike/localization_form.html'
-    model = Localization
-    fields = ['city',
-              'street',
-              'building_number',
-              'phone_number',
-              'email']
-
-
 class DetailBikeView(View):
 
     def get(self, request, pk):
@@ -102,3 +92,36 @@ class ListStaffView(ListView):
 
 class DetailStaffView(DetailView):
     pass
+
+
+class LoginStaffView(ListView):
+    pass
+
+
+class LogoutStaffView(DetailView):
+    pass
+
+
+class LocalizationView(CreateView):
+    pass
+
+
+class CreateLocalizationView(CreateView):
+    template_name = 'bike/localization_form.html'
+    model = Localization
+    fields = ['city',
+              'street',
+              'building_number',
+              'phone_number',
+              'email']
+
+
+class UpdateLocalizationView(CreateView):
+    pass
+
+
+class DeleteLocalizationView(CreateView):
+    pass
+
+
+
