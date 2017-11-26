@@ -4,9 +4,12 @@ from django.template.response import TemplateResponse
 from django.views.generic import (
     ListView,
     CreateView,
+    UpdateView,
     FormView,
     View,
-    DetailView
+    DetailView,
+    DeleteView,
+
 )
 from .models import Bike, Localization
 
@@ -20,7 +23,7 @@ def HomepageView(request):
                                 ctx)
 
 
-class BikesListView(ListView):
+class ListBikesView(ListView):
     template_name = "bike/bikes_list.html"
     ctx = "bike_list"
 
@@ -56,3 +59,46 @@ class DetailBikeView(View):
             'bike_list': Bike.objects.all(),
             })
 
+
+class UpdateBikeView(UpdateView):
+    pass
+
+
+class DeleteBikeView(DeleteView):
+    pass
+
+
+class ServiceBikeView(DetailView):
+    pass
+
+
+class UpdateServiceBikeView(UpdateView):
+    pass
+
+
+class HistoryBikeView(DetailView):
+    pass
+
+
+class RentingBikeView(View):
+    pass
+
+
+class UpdateRentingBikeView(View):
+    pass
+
+
+class ListClientView(ListView):
+    pass
+
+
+class DetailClientView(DetailView):
+    pass
+
+
+class ListStaffView(ListView):
+    pass
+
+
+class DetailStaffView(DetailView):
+    pass
