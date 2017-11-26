@@ -23,6 +23,6 @@ urlpatterns = [
     url(r'^staff/$', views.ListStaffView.as_view(), name="staff-list"),
     url(r'^staff/(?P<pk>[0-9]+)/$', views.DetailStaffView.as_view(), name="staff-details"),
     url(r'^staff/login/$', views.LoginStaffView.as_view(), name="staff-login"),
-    url(r'^staff/logout/$', views.LogoutStaffView.as_view(), name="staff-logout"),
+    url(r'^staff/logout/(?P<pk>[0-9]+)/$', views.LogoutStaffView.as_view(), name="staff-logout"),
 
 ]
