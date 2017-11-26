@@ -8,8 +8,16 @@ from django.views.generic import (
     View,
     DetailView
 )
-
 from .models import Bike, Localization
+
+
+def HomepageView(request):
+        ctx = {
+            "info": "Hello World!"
+        }
+        return TemplateResponse(request,
+                                "bike/index.html",
+                                ctx)
 
 
 class BikesListView(ListView):

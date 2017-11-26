@@ -1,5 +1,8 @@
+from datetime import date
 from django.db import models
 from django.urls import reverse
+from django.utils.translation import gettext as _
+from client.models import Client
 
 
 TYPES = (
@@ -16,14 +19,22 @@ POSITION = (
     ('SERVICE', 'serviceman'),
 )
 
+STATUS = (
+    ('excellent', 'excellent'),
+    ('good', 'good'),
+    ('poor', 'poor'),
+    ('trash', 'trash'),
+)
+
+
 class Bike(models.Model):
     producer_name = models.CharField(max_length=64)
     model_name = models.CharField(max_length=64)
     frame_number = models.IntegerField(default=0)
     bike_type = models.TextField(choices=TYPES)
-
     is_rented = models.BooleanField(default=False)
     is_functional = models.BooleanField(default=True)
+    renting_history = models.ManyToManyField(Client, through='Renting')
 
     def get_absolute_url(self):
         return reverse("bikes_list")
@@ -34,13 +45,25 @@ class Bike(models.Model):
                                  self.bike_type)
 
 
+class Renting(models.Model):
+    related_bike = models.ForeignKey(Bike)
+    related_client = models.ForeignKey(Client)
+
+
+class Service(models.Model):
+    bike = models.ForeignKey(Bike, on_delete=models.CASCADE)
+    start = models.DateField(_("Date"), default=date.today)
+    current_service = models.DateField(_("Date"), default=date.today)
+    next_service = models.DateField(_("Date"), default=date.today)
+    status = models.CharField(max_length=64, )
+
+
 class Localization(models.Model):
     city = models.CharField(max_length=64)
     street = models.CharField(max_length=64)
     building_number = models.CharField(max_length=64)
     phone_number = models.IntegerField(blank=True, null=True)
     email = models.CharField(max_length=64, blank=True, null=True)
-    #bike_quant = models.IntegerField(default=0)
 
     def get_absolute_url(self):
         return reverse("bike_base")

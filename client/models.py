@@ -8,3 +8,5 @@ class Client(models.Model):
     mail = models.CharField(max_length=64)
 
 
+
+
