@@ -20,6 +20,6 @@ from django.conf import settings
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^bike4all/', include('client.urls',)),
-    url(r'^staff/', include('bike.urls')),
+    url(r'^bike4all/', include('client.urls')),
+    url(r'^bike4all/', include('bike.urls'))
 ]

@@ -39,6 +39,12 @@ class CreateLocalizationView(CreateView):
               'email']
 
 
+class DetailBikeView(View):
 
-class BikeDetailView(View):
-    pass
+    def get(self, request, pk):
+        bike = Bike.objects.get(pk=pk)
+        return TemplateResponse(request, "bike/detail_bike_view.html", {
+            'bike': bike,
+            'bike_list': Bike.objects.all(),
+            })
+

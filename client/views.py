@@ -7,10 +7,10 @@ from django.views.generic import ListView, View
 
 def HomePageView(request):
     ctx = {
-        "info": "Hello World"
+        "info": "Hello World! "
     }
     return TemplateResponse(request,
-                            "client/base_client.html",
+                            "client/client_homepage.html",
                             ctx)
 
 
