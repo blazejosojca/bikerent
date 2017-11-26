@@ -3,27 +3,28 @@
 
 <html>
     <head>
-        <meta charset="utf-8"></head>
-    <title>
-    {% block title %}
-        Bike4All
-    {% endblock %}
-    </title>
+        <meta charset="utf-8">
+        <title>
+            {% block title %}
+                Bike4All
+            {% endblock %}
+        </title>
 
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
-    <link href='//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="{% static '' %}">
-
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+        <link href='//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="{% static '' %}">
+    </head>
     <body>
 
         <div class="page-header">
             <h1>Bike4All</h1>
         </div>
+
         <div class=content container">
         <br/>
-        {% block content %}
-        {% endblock %}
+            {% block content %}
+            {% endblock %}
         </div>
 
         <footer>
