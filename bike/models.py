@@ -6,12 +6,12 @@ from client.models import Client
 
 
 TYPES = (
-    (0, "unknown"),
-    (1, "city bike"),
-    (2, "cross bike"),
-    (3, "trekking bike"),
-    (4, "mountain terrain bike"),
-    (5, "bike for kids")
+    ("Unknown", "unknown"),
+    ("city", "city bike"),
+    ("cross", "cross bike"),
+    ("trekking", "trekking bike"),
+    ("mtb", "mountain terrain bike"),
+    ("kids", "bike for kids")
 )
 
 POSITION = (
@@ -30,14 +30,15 @@ STATUS = (
 class Bike(models.Model):
     producer_name = models.CharField(max_length=64)
     model_name = models.CharField(max_length=64)
-    frame_number = models.IntegerField(default=0)
-    bike_type = models.TextField(choices=TYPES)
+    frame_number = models.CharField(max_length=24)
+    bike_type = models.CharField(max_length=24, choices=TYPES)
     is_rented = models.BooleanField(default=False)
     is_functional = models.BooleanField(default=True)
     renting_history = models.ManyToManyField(Client, through='Renting')
 
     def get_absolute_url(self):
-        return reverse("bikes_list")
+        return reverse("bike:bike-detail",
+                       kwargs={'pk': self.pk})
 
     def __str__(self):
         return "{} {} {}".format(self.producer_name,
