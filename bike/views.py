@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from django.shortcuts import render, redirect
 from django.template.response import TemplateResponse
 from django.views.generic import (
@@ -9,8 +8,8 @@ from django.views.generic import (
     View,
     DetailView,
     DeleteView,
-
 )
+from django.urls import reverse_lazy
 from .models import Bike, Localization
 
 
@@ -40,27 +39,37 @@ class CreateBikeView(CreateView):
               'bike_type']
 
 
-class DetailBikeView(View):
+class GeneralBikeView(View):
 
     def get(self, request, pk):
         bike = Bike.objects.get(pk=pk)
-        return TemplateResponse(request, "bike/detail_bike_view.html", {
+        return TemplateResponse(request, "bike/bike_general.html", {
             'bike': bike,
             'bike_list': Bike.objects.all(),
             })
 
 
 class UpdateBikeView(UpdateView):
-    pass
+    model = Bike
+    fields = ['producer_name',
+              'model_name',
+              'frame_number',
+              'bike_type']
+    template_name = 'bike/bike_update_form.html'
 
 
 class DeleteBikeView(DeleteView):
-    pass
+    model = Bike
+    success_url = 'bike/bikes_list.html'
 
 
 class ServiceBikeView(DetailView):
-    pass
 
+    model = Bike
+
+    def get_context_data(self, **kwargs):
+        context = super(ServiceBikeView, self).get_context_data(**kwargs)
+        return context
 
 class UpdateServiceBikeView(UpdateView):
     pass

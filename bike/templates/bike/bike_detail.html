@@ -1,0 +1,15 @@
+{% extends 'bike/bike_base.html' %}
+
+{% block title %}
+    Bike4All | {{ block.super}}
+{% endblock %}
+
+{% block content %}
+<h1>Producer: {{ bike.producer_name }}</h1>
+<p>Frame number: {{ bike.frame_number }}</p>
+<p>Type: {{ bike.bike_type }}</p>
+<p>Renting status: {{ bike.is_rented }}</p>
+<p>Maintance status: {{ bike.is_functional }}</p>
+
+{% endblock %}
+

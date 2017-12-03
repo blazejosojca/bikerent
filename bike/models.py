@@ -20,10 +20,8 @@ POSITION = (
 )
 
 STATUS = (
-    ('excellent', 'excellent'),
-    ('good', 'good'),
-    ('poor', 'poor'),
-    ('trash', 'trash'),
+    ('checked', 'everything is okay'),
+    ('service', 'still in service'),
 )
 
 
@@ -37,26 +35,35 @@ class Bike(models.Model):
     renting_history = models.ManyToManyField(Client, through='Renting')
 
     def get_absolute_url(self):
-        return reverse("bike:bike-detail",
+        return reverse("bike:bike-details",
                        kwargs={'pk': self.pk})
 
     def __str__(self):
-        return "{} {} {}".format(self.producer_name,
-                                 self.model_name,
-                                 self.bike_type)
+        return "{} {}".format(self.producer_name,
+                              self.model_name)
 
 
 class Renting(models.Model):
     related_bike = models.ForeignKey(Bike)
     related_client = models.ForeignKey(Client)
+    start_time = models.DateTimeField(auto_now=True)
+    return_time = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return "{} {}".format(self.related_bike,
+                                     self.related_client)
 
 
 class Service(models.Model):
-    bike = models.ForeignKey(Bike, on_delete=models.CASCADE)
+    related_bike = models.ForeignKey(Bike, on_delete=models.CASCADE)
     start = models.DateField(_("Date"), default=date.today)
     current_service = models.DateField(_("Date"), default=date.today)
     next_service = models.DateField(_("Date"), default=date.today)
-    status = models.CharField(max_length=64, )
+    status = models.CharField(max_length=64, choices=STATUS)
+
+    def __str__(self):
+        return "{} {} ".format(self.related_bike,
+                               self.status)
 
 
 class Localization(models.Model):
