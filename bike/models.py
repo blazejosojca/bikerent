@@ -2,7 +2,9 @@ from datetime import date
 from django.db import models
 from django.urls import reverse
 from django.utils.translation import gettext as _
+from django.utils.timezone import now
 from client.models import Client
+
 
 
 TYPES = (

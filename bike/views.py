@@ -63,15 +63,20 @@ class CreateRentingBikeView(View):
     pass
 
 
+class RentingBikeView(View):
+    pass
+
+
 class UpdateRentingBikeView(View):
+    pass
+
+
+class DeleteRentingBikeView(View):
     pass
 
 
 class HistoryBikeView(DetailView):
     pass
-
-
-
 
 
 class ListClientView(ListView):
