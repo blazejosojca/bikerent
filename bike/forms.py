@@ -1,21 +1,24 @@
 from django.contrib.auth.models import User
 from bike.models import Bike, Localization
-from django.core.validators import RegexValidator
 
 from django import forms
 
-class BikeForm(forms.ModelForm):
-    frame_number = forms.RegexField(regex=r'^[A-Z0-9]{3,15}$',
-                                    error_messages=(
-                                        "Frame number must consists numbers and letters"
-                                    ))
+
+class BikeFormCreate(forms.ModelForm):
 
     class Meta:
         model = Bike
-        fields = ['producer_name',
-                  'model_name',
-                  'frame_number',
-                  'bike_type']
+        exclude = ['is_rented',
+                   'is_functional',
+                   'renting_history']
+
+
+class BikeFormUpdate(forms.ModelForm):
+
+    class Meta:
+        model = Bike
+        exclude = ['is_rented',
+                   'renting_history']
 
 
 class LocalizationForm(forms.ModelForm):
@@ -23,7 +26,5 @@ class LocalizationForm(forms.ModelForm):
         model = Localization
         fields = ['city',
                   'street',
-                  'building_number',
-                  ]
-
+                  'building_number']
 

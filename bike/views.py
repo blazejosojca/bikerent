@@ -11,6 +11,7 @@ from django.views.generic import (
 )
 from django.urls import reverse_lazy
 from .models import Bike, Localization
+from .forms import BikeFormCreate, BikeFormUpdate
 
 
 def HomepageView(request):
@@ -23,7 +24,7 @@ def HomepageView(request):
 
 
 class ListBikesView(ListView):
-    template_name = "bike/bikes_list.html"
+    template_name = "bike/bike_list.html"
     ctx = "bike_list"
 
     def get_queryset(self):
@@ -31,47 +32,38 @@ class ListBikesView(ListView):
 
 
 class CreateBikeView(CreateView):
+    model = Bike
+    form_class = BikeFormCreate
     template_name = 'bike/bike_form.html'
-    model = Bike
-    fields = ['producer_name',
-              'model_name',
-              'frame_number',
-              'bike_type']
+    success_url = reverse_lazy('bike:bike-list')
 
 
-class GeneralBikeView(View):
-
-    def get(self, request, pk):
-        bike = Bike.objects.get(pk=pk)
-        return TemplateResponse(request, "bike/bike_general.html", {
-            'bike': bike,
-            'bike_list': Bike.objects.all(),
-            })
-
-
-class UpdateBikeView(UpdateView):
-    model = Bike
-    fields = ['producer_name',
-              'model_name',
-              'frame_number',
-              'bike_type']
-    template_name = 'bike/bike_update_form.html'
-
-
-class DeleteBikeView(DeleteView):
-    model = Bike
-    success_url = 'bike/bikes_list.html'
-
-
-class ServiceBikeView(DetailView):
+class DetailBikeView(DetailView):
 
     model = Bike
 
     def get_context_data(self, **kwargs):
-        context = super(ServiceBikeView, self).get_context_data(**kwargs)
+        context = super(DetailBikeView, self).get_context_data(**kwargs)
         return context
 
-class UpdateServiceBikeView(UpdateView):
+
+class UpdateBikeView(UpdateView):
+    model = Bike
+    form_class = BikeFormUpdate
+    template_name = 'bike/bike_update_form.html'
+    success_url = reverse_lazy('bike:bike-list')
+
+
+class DeleteBikeView(DeleteView):
+    model = Bike
+    success_url = reverse_lazy('bike:bike-list')
+
+
+class CreateRentingBikeView(View):
+    pass
+
+
+class UpdateRentingBikeView(View):
     pass
 
 
@@ -79,12 +71,7 @@ class HistoryBikeView(DetailView):
     pass
 
 
-class RentingBikeView(View):
-    pass
 
-
-class UpdateRentingBikeView(View):
-    pass
 
 
 class ListClientView(ListView):

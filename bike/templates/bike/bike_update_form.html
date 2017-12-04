@@ -1,13 +1,16 @@
 {% extends 'bike/bike_base.html' %}
 
 {% block title %}
-    Bike4All | {{ block.super}}
+    {{ bike.model_name }} {{ bike.producer_name }}|{{ block.super}}
 {% endblock %}
 
 {% block content %}
+    <div>
+    {{ bike.model_name }} {{ bike.producer_name }}
+    </div>
 <form action="" method="post">{% csrf_token %}
     {{ form.as_p }}
-    <input type="submit" value="Update" />
+    <input type="submit" value="Update"/>
 </form>
 
 {% endblock %}

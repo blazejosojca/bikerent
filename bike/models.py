@@ -32,38 +32,36 @@ class Bike(models.Model):
     bike_type = models.CharField(max_length=24, choices=TYPES)
     is_rented = models.BooleanField(default=False)
     is_functional = models.BooleanField(default=True)
+    service_date = models.DateField(_("Last service date"), default=date.today)
+    next_service_date = models.DateField(_("Next service date"), default=date.today, blank=True
+                                         )
     renting_history = models.ManyToManyField(Client, through='Renting')
 
     def get_absolute_url(self):
-        return reverse("bike:bike-details",
+        return reverse("bike:bike-detail",
                        kwargs={'pk': self.pk})
 
     def __str__(self):
-        return "{} {}".format(self.producer_name,
-                              self.model_name)
+        return "{} {} {}".format(self.producer_name,
+                                 self.model_name,
+                                 self.bike_type)
+
+    @property
+    def bike_name(self):
+        return "{} - {} - {}".format(self.producer_name,
+                                     self.model_name,
+                                     self.pk)
 
 
 class Renting(models.Model):
     related_bike = models.ForeignKey(Bike)
     related_client = models.ForeignKey(Client)
     start_time = models.DateTimeField(auto_now=True)
-    return_time = models.DateTimeField(auto_now=True)
+    return_time = models.DateTimeField(auto_now=True, blank=True)
 
     def __str__(self):
         return "{} {}".format(self.related_bike,
-                                     self.related_client)
-
-
-class Service(models.Model):
-    related_bike = models.ForeignKey(Bike, on_delete=models.CASCADE)
-    start = models.DateField(_("Date"), default=date.today)
-    current_service = models.DateField(_("Date"), default=date.today)
-    next_service = models.DateField(_("Date"), default=date.today)
-    status = models.CharField(max_length=64, choices=STATUS)
-
-    def __str__(self):
-        return "{} {} ".format(self.related_bike,
-                               self.status)
+                              self.related_client)
 
 
 class Localization(models.Model):
@@ -74,7 +72,7 @@ class Localization(models.Model):
     email = models.CharField(max_length=64, blank=True, null=True)
 
     def get_absolute_url(self):
-        return reverse("bike_base")
+        return reverse("bike:bike_base")
 
     def __str__(self):
         return "{} {} {}".format(self.city,

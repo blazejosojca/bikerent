@@ -1,15 +1,39 @@
 {% extends 'bike/bike_base.html' %}
 
 {% block title %}
-    Bike4All | {{ block.super}}
+   {{ bike.producer_name }} | {{block.super}}
 {% endblock %}
 
 {% block content %}
-<h1>Producer: {{ bike.producer_name }}</h1>
-<p>Frame number: {{ bike.frame_number }}</p>
-<p>Type: {{ bike.bike_type }}</p>
-<p>Renting status: {{ bike.is_rented }}</p>
-<p>Maintance status: {{ bike.is_functional }}</p>
+    <div>
+        <h1>Bike: {{ bike.producer_name }} {{ bike.model_name }}</h1>
+    </div>
+    <div>
+        <h2>ACTIONS</h2>
+        <div>
+            <span>
+            <a href="{% url 'bike:bike-history' bike.pk %}">View renting history</a>
+            </span>
+            <span>
+                <a href="{% url 'bike:bike-edit' bike.pk %}">Edit this bike</a>
+            </span>
+            <span>
+                <a href="{% url 'bike:bike-delete' bike.pk %}">Delete this bike</a>
+            </span>
+    </div>
+    <div>
+        <h3>General info:</h3>
+        <p>Frame number: {{ bike.frame_number }}</p>
+        <p>Type: {{ bike.bike_type|upper }}</p>
+        <p>Is functional: {{ bike.is_functional }}</p>
+        <p>Last service date: {{ bike.service_date }}</p>
+        <p>Next service date: {{ bike.next_service_date }}</p>
+    </div>
+    <div>
+        <h3>Renting info:</h3>
+        <p>Is rented: {{ bike.is_rented }}</p>
+    </div>
 
+    <p>View history</p>
 {% endblock %}
 

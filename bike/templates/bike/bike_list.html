@@ -14,14 +14,10 @@
                 <li>
                     <div>
                         <h3>{{ bike }}</h3>
-
                         <div>
-                            <h4>General info</h4>
-                            <h5>Technical status:</h5>
                             <!-- Details -->
-                            <a href="{{ bike.pk }}">Details</a>
+                            <a href="{% url 'bike:bike-detail' bike.pk %}">Detail</a>
                             <!-- Tech info -->
-                            <a>Technical condition</a>
                         </div>
                         <div>
                             <h4>Rent status:</h4>
