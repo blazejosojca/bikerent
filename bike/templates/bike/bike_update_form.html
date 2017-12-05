@@ -1,4 +1,4 @@
-{% extends 'bike/bike_base.html' %}
+{% extends 'bike/bike_base.html' %} {% load crispy_forms_tags %}
 
 {% block title %}
     {{ bike.model_name }} {{ bike.producer_name }}|{{ block.super}}
@@ -9,7 +9,7 @@
     {{ bike.model_name }} {{ bike.producer_name }}
     </div>
 <form action="" method="post">{% csrf_token %}
-    {{ form.as_p }}
+    {{ form | crispy}}
     <input type="submit" value="Update"/>
 </form>
 

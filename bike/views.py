@@ -4,15 +4,18 @@ from django.views.generic import (
     ListView,
     CreateView,
     UpdateView,
-    FormView,
     View,
     DetailView,
     DeleteView,
 )
 from django.urls import reverse_lazy
-from .models import Bike, Localization
-from .forms import BikeFormCreate, BikeFormUpdate
-
+from .models import Bike, Localization, Renting
+from .forms import (
+    BikeFormCreate,
+    BikeFormUpdate,
+    RentingForm,
+    ReturnRentingForm
+    )
 
 def HomepageView(request):
         ctx = {
@@ -35,7 +38,6 @@ class CreateBikeView(CreateView):
     model = Bike
     form_class = BikeFormCreate
     template_name = 'bike/bike_form.html'
-    success_url = reverse_lazy('bike:bike-list')
 
 
 class DetailBikeView(DetailView):
@@ -51,7 +53,6 @@ class UpdateBikeView(UpdateView):
     model = Bike
     form_class = BikeFormUpdate
     template_name = 'bike/bike_update_form.html'
-    success_url = reverse_lazy('bike:bike-list')
 
 
 class DeleteBikeView(DeleteView):
@@ -59,20 +60,42 @@ class DeleteBikeView(DeleteView):
     success_url = reverse_lazy('bike:bike-list')
 
 
-class CreateRentingBikeView(View):
+class CreateRentingBikeView(CreateView):
+    model = Renting
+    template_name = 'bike/renting_form.html'
+    form_class = RentingForm
+    success_url = reverse_lazy('bike:list-bike-renting')
+
+
+class RentingBikeView(DetailView):
     pass
 
 
-class RentingBikeView(View):
-    pass
+class ListRentingBikeView(ListView):
+    template_name = "bike/renting_list.html"
+    ctx = "renting_list"
+
+    def get_queryset(self):
+        return Renting.objects.filter(return_date__isnull=True)
 
 
-class UpdateRentingBikeView(View):
-    pass
+class UpdateRentingBikeView(UpdateView):
+    model = Renting
+    template_name = 'bike/renting_form.html'
+    form_class = RentingForm
+    success_url = reverse_lazy('bike:list-bike-renting')
 
 
-class DeleteRentingBikeView(View):
-    pass
+class ReturnRentingBikeView(UpdateBikeView):
+    model = Renting
+    template_name = 'bike/renting_form.html'
+    form_class = ReturnRentingForm
+    success_url = reverse_lazy('bike:list-bike-renting')
+
+
+class DeleteRentingBikeView(DeleteView):
+    model = Renting
+    success_url = reverse_lazy('bike:list-bike-renting')
 
 
 class HistoryBikeView(DetailView):

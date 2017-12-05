@@ -1,12 +1,12 @@
 {% extends 'bike/bike_base.html' %}
 
 {% block title %}
-   {{ bike.producer_name }} | {{block.super}}
+   {{ bike }} | {{ block.super}}
 {% endblock %}
 
 {% block content %}
     <div>
-        <h1>Bike: {{ bike.producer_name }} {{ bike.model_name }}</h1>
+        <h1>Bike: {{ bike.bike_name | upper }}</h1>
     </div>
     <div>
         <h2>ACTIONS</h2>

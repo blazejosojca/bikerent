@@ -1,15 +1,13 @@
 {% extends 'bike/bike_base.html' %} {% load crispy_forms_tags %}
 
 {% block title %}
-    {{ block.super }}
+   {{ bike.producer_name }} {{ block.super }}
 {% endblock %}
-
 
 {% block content %}
     <form action="" method="post">
-        {% csrf_token %}
-        {{ form | crispy}}
-        <input type="submit" />
+      {% csrf_token %}
+      {{ form | crispy }}
+    <input type="submit" value="Create"/>
     </form>
-
 {% endblock %}

@@ -1,5 +1,6 @@
 from datetime import date
 from django.db import models
+from django.db.models import Q
 from django.urls import reverse
 from django.utils.translation import gettext as _
 from django.utils.timezone import now
@@ -19,11 +20,6 @@ TYPES = (
 POSITION = (
     ('BOSS', 'boss'),
     ('SERVICE', 'serviceman'),
-)
-
-STATUS = (
-    ('checked', 'everything is okay'),
-    ('service', 'still in service'),
 )
 
 
@@ -46,20 +42,27 @@ class Bike(models.Model):
     def __str__(self):
         return "{} {} {}".format(self.producer_name,
                                  self.model_name,
-                                 self.bike_type)
+                                 self.pk)
 
     @property
     def bike_name(self):
-        return "{} - {} - {}".format(self.producer_name,
-                                     self.model_name,
-                                     self.pk)
+        return "{} {}".format(self.producer_name,
+                              self.model_name)
 
 
 class Renting(models.Model):
-    related_bike = models.ForeignKey(Bike)
+    related_bike = models.ForeignKey(
+        Bike,
+        limit_choices_to=Q(renting__return_date__isnull=True)
+    )
     related_client = models.ForeignKey(Client)
-    start_time = models.DateTimeField(auto_now=True)
-    return_time = models.DateTimeField(auto_now=True, blank=True)
+    start_date = models.DateField(default=date.today)
+    start_time = models.TimeField(default=now)
+    return_date = models.DateField(null=True, blank=True)
+    return_time = models.TimeField(null=True, blank=True)
+
+    def get_absolute_url(self):
+        return reverse("bike:bike_list")
 
     def __str__(self):
         return "{} {}".format(self.related_bike,

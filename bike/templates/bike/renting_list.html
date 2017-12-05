@@ -1,0 +1,46 @@
+{% extends 'bike/bike_base.html' %}
+
+{% block title %}
+    Bike4All | {{ block.super}}
+{% endblock %}
+
+
+{% block content %}
+
+<h4>Rentings:</h4>
+    <!-- List of renting -->
+        <ol>
+            {% for renting in renting_list %}
+                <li>
+                    <div>
+                        <div>
+                            <h3>{{ renting }}</h3>
+                        </div>
+                        <div>
+                            <!-- Update -->
+                            <a href="{% url 'bike:edit-bike-renting' renting.pk %}">Edit</a>
+                        </div>
+                        <div>
+                            <!-- Delete -->
+                            <a href="{% url 'bike:delete-bike-renting' renting.pk %}">Delete</a>
+                        </div>
+                        <div>
+                            <!-- Return bike -->
+                            <a href="{% url 'bike:return-bike-renting' renting.pk %}">Return</a>
+                        </div>
+
+                    </div>
+
+            {% endfor %}
+        </ol>
+        <div>
+            <div>
+                <h4>Create a new renting</h4>
+                <a href="{% url 'bike:create-bike-renting' %}">Rent a bike</a>
+            </div>
+            <div>
+                <h4>Show all active renting</h4>
+                <a href="{% url 'bike:list-bike-renting' %}">Show active renting</a>
+            </div>
+        </div>
+{% endblock %}

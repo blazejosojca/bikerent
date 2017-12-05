@@ -11,6 +11,11 @@ class Client(models.Model):
         return "{} {}".format(self.first_name,
                               self.last_name)
 
+    @property
+    def client_name(self):
+        return "{} {}".format(self.first_name,
+                              self.last_name)
+
 
 
 
