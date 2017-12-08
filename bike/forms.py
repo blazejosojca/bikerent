@@ -33,20 +33,5 @@ class RentingForm(forms.ModelForm):
         fields = '__all__'
 
 
-class ReturnRentingForm(forms.ModelForm):
-
-    class Meta:
-        model = Renting
-        fields = '__all__'
-
-    start_date = forms.DateField(disabled=True)
-    start_time = forms.TimeField(disabled=True)
-    return_date = forms.DateField(widget=forms.DateInput)
-    return_time = forms.TimeField(widget=forms.DateTimeInput)
-
-    def clean_related_bike(self):
-        return self.initial('related_bike')
-
-
 
 

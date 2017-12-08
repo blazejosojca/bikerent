@@ -28,7 +28,6 @@ class Bike(models.Model):
     model_name = models.CharField(max_length=64)
     frame_number = models.CharField(max_length=24)
     bike_type = models.CharField(max_length=24, choices=TYPES)
-    is_rented = models.BooleanField(default=False)
     is_functional = models.BooleanField(default=True)
     service_date = models.DateField(_("Last service date"), default=date.today)
     next_service_date = models.DateField(_("Next service date"), default=date.today, blank=True
@@ -44,17 +43,14 @@ class Bike(models.Model):
                                  self.model_name,
                                  self.pk)
 
-    @property
     def bike_name(self):
         return "{} {}".format(self.producer_name,
                               self.model_name)
 
 
+
 class Renting(models.Model):
-    related_bike = models.ForeignKey(
-        Bike,
-        limit_choices_to=Q(renting__return_date__isnull=True)
-    )
+    related_bike = models.ForeignKey(Bike)
     related_client = models.ForeignKey(Client)
     start_date = models.DateField(default=date.today)
     start_time = models.TimeField(default=now)
@@ -67,6 +63,12 @@ class Renting(models.Model):
     def __str__(self):
         return "{} {}".format(self.related_bike,
                               self.related_client)
+
+    def rent_info(self):
+        return "{} {} {} {}".format(self.related_bike,
+                                    self.related_client,
+                                    self.start_date,
+                                    self.return_date)
 
 
 class Localization(models.Model):

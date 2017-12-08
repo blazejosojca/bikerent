@@ -13,9 +13,9 @@ from .models import Bike, Localization, Renting
 from .forms import (
     BikeFormCreate,
     BikeFormUpdate,
-    RentingForm,
-    ReturnRentingForm
-    )
+    RentingForm
+)
+
 
 def HomepageView(request):
         ctx = {
@@ -48,7 +48,8 @@ class DetailBikeView(DetailView):
         context = super(DetailBikeView, self).get_context_data(**kwargs)
         return context
 
-
+def get_queryset(self):
+        return Bike.objects.all()
 class UpdateBikeView(UpdateView):
     model = Bike
     form_class = BikeFormUpdate
@@ -67,10 +68,6 @@ class CreateRentingBikeView(CreateView):
     success_url = reverse_lazy('bike:list-bike-renting')
 
 
-class RentingBikeView(DetailView):
-    pass
-
-
 class ListRentingBikeView(ListView):
     template_name = "bike/renting_list.html"
     ctx = "renting_list"
@@ -84,13 +81,7 @@ class UpdateRentingBikeView(UpdateView):
     template_name = 'bike/renting_form.html'
     form_class = RentingForm
     success_url = reverse_lazy('bike:list-bike-renting')
-
-
-class ReturnRentingBikeView(UpdateBikeView):
-    model = Renting
-    template_name = 'bike/renting_form.html'
-    form_class = ReturnRentingForm
-    success_url = reverse_lazy('bike:list-bike-renting')
+# TODO stworzyć widok edycji wypożyczenia bez generyków, ściągać id roweru
 
 
 class DeleteRentingBikeView(DeleteView):
@@ -98,9 +89,13 @@ class DeleteRentingBikeView(DeleteView):
     success_url = reverse_lazy('bike:list-bike-renting')
 
 
-class HistoryBikeView(DetailView):
-    pass
+class HistoryBikeView(View):
+    template_name = 'bike/bike_renting_list.html'
 
+    def get(self, request, pk):
+        bike = Bike.objects.get(pk=pk)
+        return render(request, self.template_name, {'bike': bike,
+                                                        'renting_list':Renting.objects.filter(related_bike=pk)})
 
 class ListClientView(ListView):
     pass

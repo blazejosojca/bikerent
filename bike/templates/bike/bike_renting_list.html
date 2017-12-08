@@ -1,0 +1,23 @@
+{% extends 'bike/bike_base.html' %}
+
+{% block title %}
+    Bike4All | {{ block.super}}
+{% endblock %}
+
+
+{% block content %}
+
+<h4>Historical rentings:</h4>
+    <!-- Details of bike rentings -->
+        <ol>
+            {% for renting in renting_list %}
+                <li>
+                    <div>
+                        <h3>{{ renting.rent_info }}</h3>
+                </li>
+            {% empty %}
+                <li>There were any rents of this bike! </li>
+            {% endfor %}
+        </ol>
+
+{% endblock %}
