@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.contrib.auth import get_user_model
 from django.urls import reverse_lazy
 from django.template.response import TemplateResponse
 from django.views.generic import (
@@ -7,11 +8,12 @@ from django.views.generic import (
     DetailView,
     DeleteView,
     UpdateView,
-    CreateView
+    CreateView,
+    FormView,
 )
 from django.contrib.auth import authenticate, login
-from .forms import UserAddForm, ClientForm
-from .models import Client
+from .forms import ClientForm, UserAddForm
+from .models import Client, MyUser
 from bike.models import Renting
 
 
@@ -24,7 +26,7 @@ class CreateClient(View):
 class UpdateClient(UpdateView):
         model = Client
         form_class = ClientForm
-        template_name = 'client/client_form.html'
+        template_name = 'client/client_update_form.html'
 
 
 class ClientDetails(DetailView):
@@ -53,16 +55,15 @@ class ClientListRenting(View):
                                                     'renting_list': Renting.objects.filter(related_client=pk)})
 
 
-class DeleteClient(DetailView):
+class DeleteClient(DeleteView):
     model = Client
-    success_url = "client/client_list.html"
+    success_url = reverse_lazy('client:client-list')
 
 
 """
-
 class LoginView(FormView):
-    model = User
-    form_class = UserAddForm
+    model = MyUser
+    form_class = AddUserForm
     fields = '__all__'
     success_url = '/'
     template_name = 'client/form_template.html'
@@ -73,27 +74,25 @@ class LoginView(FormView):
 
     def get_success_url(self):
         return reverse('client_list')
+"""
 
+
+class ListUser(ListView):
+    model = get_user_model()
+    template_name = "client/user_list.html"
+
+
+class CreateMyLoser(CreateView):
+    model = MyUser
+    form_class = UserAddForm
+    template_name = 'client/myuser_form.html'
+
+"""
 
 class LogoutView(View):
 
     def get(self, request):
         logout(request)
         return redirect("/")
-
-
-class UserAddView(CreateView):
-
-    template_name = 'client/form_template.html'
-    form_class = UserAddForm
-
-    def get_success_url(self):
-        return reverse('list-users')
-
-
-    def form_valid(self, form):
-        user = get_user_model()
-        user.objects.create_user(**form.cleaned_data)
-        return redirect(self.get_success_url())
 
 """

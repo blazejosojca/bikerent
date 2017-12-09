@@ -1,0 +1,16 @@
+{% extends 'bike/bike_base.html' %}
+
+{% block title %}
+    Bike4All | {{ block.super}}
+{% endblock %}
+
+{% block content %}
+<form action="" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <h2> Everything about this client will be deleted</h2>
+    <h2> Are you sure?</h2>
+    <input type="submit" value="Proceed!" />
+</form>
+
+{% endblock %}

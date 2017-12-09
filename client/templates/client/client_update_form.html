@@ -1,10 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'bike/bike_base.html' %} {% load crispy_forms_tags %}
 
-</body>
-</html>
+{% block title %}
+    {{ client }}
+{% endblock %}
+
+{% block content %}
+   {{ client }}
+<form action="" method="post">{% csrf_token %}
+    {{ form | crispy}}
+    <input type="submit" value="Update"/>
+</form>
+
+{% endblock %}

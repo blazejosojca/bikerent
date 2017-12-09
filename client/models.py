@@ -20,3 +20,22 @@ class Client(models.Model):
     def client_name(self):
         return "{} {}".format(self.first_name,
                               self.last_name)
+
+
+class MyUser(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    first_name = models.CharField(max_length=64)
+    last_name = models.CharField(max_length=64)
+
+    def __str__(self):
+        return "{} {}".format(self.first_name,
+                              self.last_name,)
+
+    def get_absolute_url(self):
+        return reverse('client:user-list')
+
+
+
+
+
+

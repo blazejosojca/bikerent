@@ -1,15 +1,15 @@
-from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django import forms
 from .validators import validate_password
-from .models import Client
+from .models import Client, MyUser
+from django.contrib.auth import get_user_model
 
 
 class UserAddForm(forms.ModelForm):
-    password_check = forms.CharField(widget=forms.PasswordInput)
+    password_2 = forms.CharField(widget=forms.PasswordInput)
 
     class Meta:
-        model = User
+        model = get_user_model()
         fields = [
             'username',
             'first_name',
@@ -22,10 +22,10 @@ class UserAddForm(forms.ModelForm):
         }
 
     def clean(self):
-        if self.cleaned_data['password'] != self.cleaned_data['password_check']:
+        if self.cleaned_data['password'] != self.cleaned_data['password_2']:
             raise forms.ValidationError('Password aren"t same')
         else:
-            self.cleaned_data.pop('password_check')
+            self.cleaned_data.pop('password_2')
         return self.cleaned_data
 
     def clean_username(self):
@@ -51,4 +51,3 @@ class ClientForm(forms.ModelForm):
     class Meta:
         model = Client
         fields = '__all__'
-

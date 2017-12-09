@@ -5,8 +5,8 @@
 {% endblock %}
 
 {% block content %}
+    {{ client }}
     <div>
-        <h1>Client: {{ client.name }}</h1>
 
         <ol>
             {% for renting in renting_list %}

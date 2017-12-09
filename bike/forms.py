@@ -1,4 +1,3 @@
-from django.contrib.auth.models import User
 from bike.models import Bike, Localization, Renting, Client
 from django import forms
 
