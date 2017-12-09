@@ -19,15 +19,23 @@
                             <a href="{% url 'bike:bike-detail' bike.pk %}">Detail</a>
                             <!-- Tech info -->
                         </div>
-                        <div>
-                            <h4>Renting</h4>
-                            <a href="{% url 'bike:create-bike-renting' %}">Rent a bike</a>
-                        </div>
+
                     </div>
                 </li>
             {% empty %}
                 <li>No such bikes</li>
             {% endfor %}
         </ol>
+
+    <div>
+        <h4>Add a bike</h4>
+        <!-- Add bike -->
+        <a href="{% url 'bike:create-bike' %}">Add</a>
+    </div>
+
+    <div>
+        <h4>Renting</h4>
+        <a href="{% url 'bike:create-bike-renting' %}">Rent a bike</a>
+    </div>
 
 {% endblock %}

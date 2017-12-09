@@ -1,0 +1,48 @@
+{% extends 'bike/bike_base.html' %}
+
+{% block title %}
+    Bike4All | {{ block.super}}
+
+<div>
+Home
+    <a href="{% url 'bike:index' localization.pk %}">Edit</a>
+</div>
+{% endblock %}
+
+
+{% block content %}
+
+<h4>Localizations:</h4>
+    <!-- Details of localization -->
+        <ol>
+            {% for localization in localization_list %}
+                <li>
+                    <div>
+                        <div>
+                            City: {{ localization.city | upper }}
+                        </div>
+                        <div>
+                            Street: {{ localization.street }} {{ localization.building_number }}
+                        </div>
+                        <div>
+                            Tel: {{ localization.phone_number }}
+                        </div>
+                        <div>
+                            e-mail: {{ localization.email }}
+                        </div>
+                        <div>
+                            <div>
+                            <a href="{% url 'bike:update-localization' localization.pk %}">Edit</a>
+                            </div>
+                            <div>
+                            <a href="{% url 'bike:delete-localization' localization.pk %}">Delete</a>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            {% empty %}
+                <li>No such localizations</li>
+            {% endfor %}
+        </ol>
+
+{% endblock %}

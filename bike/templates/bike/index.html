@@ -5,28 +5,24 @@
 
 
 {%  block content %}
-
-    <div>
-        <h3>Witamy</h3>
-    </div>
-
-    <div>
-        <h3>Sprawdź dostępność rowerów</h3>
-        <a href=" ">Wejdź</a>
-        <a></a>
-    </div>
-    <div>
-        <h3>Strefa klienta</h3>
-        <a href=" ">Wejdź</a>
-        <a></a>
-    </div>
-    <div>
-        <h3></h3>
-        <a href=" ">Lista</a>
-        <a></a>
-    </div>
-
    {{ info }}
+
+    <header>
+    Login
+    </header>
+    <h3>Witamy</h3>
+
+    <div>
+            <div>
+            <a href="{% url 'bike:bike-list' %}">View bikes</a>
+            </div>
+            <div>
+                <a href="{% url 'client:client-list' %}">Clients</a>
+            </div>
+            <div>
+                <a href="{% url 'bike:local-list' %}">Localizations</a>
+            </div>
+        </div>
 
 {% endblock %}
 

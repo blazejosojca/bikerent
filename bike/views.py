@@ -13,7 +13,8 @@ from .models import Bike, Localization, Renting
 from .forms import (
     BikeFormCreate,
     BikeFormUpdate,
-    RentingForm
+    RentingForm,
+    LocalizationForm
 )
 
 
@@ -97,32 +98,14 @@ class HistoryBikeView(View):
         return render(request, self.template_name, {'bike': bike,
                                                         'renting_list':Renting.objects.filter(related_bike=pk)})
 
-class ListClientView(ListView):
-    pass
 
 
-class DetailClientView(DetailView):
-    pass
+class LocalizationsList(ListView):
+        template_name = "bike/localizations_list.html"
+        ctx = "locals_list"
 
-
-class ListStaffView(ListView):
-    pass
-
-
-class DetailStaffView(DetailView):
-    pass
-
-
-class LoginStaffView(ListView):
-    pass
-
-
-class LogoutStaffView(DetailView):
-    pass
-
-
-class LocalizationView(CreateView):
-    pass
+        def get_queryset(self):
+            return Localization.objects.all()
 
 
 class CreateLocalizationView(CreateView):
@@ -133,10 +116,14 @@ class CreateLocalizationView(CreateView):
               'building_number',
               'phone_number',
               'email']
+    success_url = reverse_lazy('bike:local-list')
 
 
-class UpdateLocalizationView(CreateView):
-    pass
+
+class UpdateLocalizationView(UpdateView):
+    model = Localization
+    form_class = LocalizationForm
+    template_name = 'bike/localization_form.html'
 
 
 class DeleteLocalizationView(CreateView):

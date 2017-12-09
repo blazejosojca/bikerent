@@ -4,11 +4,9 @@ from . import views
 app_name = "client"
 
 urlpatterns = [
-    url(r'^clients/$', views.StartClientView.as_view(), name="client-start"),
-    url(r'^clients/register/$', views.RegisterClientView.as_view(), name="client-register"),
-    url(r'^clients/login/$', views.LoginClientView.as_view(), name="client-login"),
-    url(r'^clients/logout/(?P<pk>[0-9]+)/$', views.LogoutClientView.as_view(), name="client-logout"),
-    url(r'^clients/account/(?P<pk>[0-9]+)/$', views.ViewAccountClientView.as_view(), name="client-account"),
-    url(r'^clients/update/(?P<pk>[0-9]+)/$', views.UpdateAccountClientView.as_view(), name="client-update"),
-    url(r'^clients/delete_account/(?P<pk>[0-9]+)/$', views.DeleteAccountClientView.as_view(), name="client-delete"),
+    url(r'^clients/$', views.ListClient.as_view(), name="client-list"),
+    url(r'^clients/create/$', views.CreateClient.as_view(), name="client-create"),
+    url(r'^clients/details/(?P<pk>[0-9]+)$', views.ClientDetails.as_view(), name="client-detail"),
+    url(r'^clients/delete/(?P<pk>[0-9]+)/$', views.DeleteClient.as_view(), name="client-delete"),
+    url(r'^clients/update/(?P<pk>[0-9]+)/$', views.UpdateClient.as_view(), name="client-update"),
 ]

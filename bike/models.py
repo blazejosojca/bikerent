@@ -48,12 +48,14 @@ class Bike(models.Model):
                               self.model_name)
 
 
-
 class Renting(models.Model):
-    related_bike = models.ForeignKey(Bike)
+    related_bike = models.ForeignKey(Bike,
+                                     limit_choices_to=Q(renting__return_date__isnull=True) &
+                                                      Q(renting__rented__isnull=True))
     related_client = models.ForeignKey(Client)
     start_date = models.DateField(default=date.today)
     start_time = models.TimeField(default=now)
+    rented = models.BooleanField(default=False)
     return_date = models.DateField(null=True, blank=True)
     return_time = models.TimeField(null=True, blank=True)
 
@@ -90,9 +92,4 @@ class Localization(models.Model):
                                  )
 
 
-class Staff(models.Model):
-    first_name = models.CharField(max_length=64)
-    last_name = models.CharField(max_length=64)
-    position = models.IntegerField(choices=POSITION)
-    phone_number = models.IntegerField(default=0)
-    mail = models.CharField(max_length=64)
+

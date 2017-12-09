@@ -7,32 +7,28 @@ from django.views.generic import (
     DetailView,
     DeleteView,
     UpdateView,
+    CreateView
 )
 
 
-class StartClientView(View):
+class ListClient(View):
     pass
 
 
-class RegisterClientView(View):
+class CreateClient(CreateView):
     pass
 
 
-class LoginClientView(View):
+class ClientDetails(DetailView):
     pass
 
 
-class LogoutClientView(View):
+class DeleteClient(DeleteView):
     pass
 
 
-class ViewAccountClientView(DetailView):
+class UpdateClient(UpdateView):
     pass
 
 
-class UpdateAccountClientView(UpdateView):
-    pass
 
-
-class DeleteAccountClientView(DeleteView):
-    pass
