@@ -49,8 +49,11 @@ class DetailBikeView(DetailView):
         context = super(DetailBikeView, self).get_context_data(**kwargs)
         return context
 
+
 def get_queryset(self):
         return Bike.objects.all()
+
+
 class UpdateBikeView(UpdateView):
     model = Bike
     form_class = BikeFormUpdate
@@ -96,7 +99,7 @@ class HistoryBikeView(View):
     def get(self, request, pk):
         bike = Bike.objects.get(pk=pk)
         return render(request, self.template_name, {'bike': bike,
-                                                        'renting_list':Renting.objects.filter(related_bike=pk)})
+                                                    'renting_list': Renting.objects.filter(related_bike=pk)})
 
 
 

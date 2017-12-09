@@ -1,0 +1,24 @@
+{% extends 'client/bike_base.html' %}
+
+{% block title %}
+   {{ client }} | {{ block.super}}
+{% endblock %}
+
+{% block content %}
+    <div>
+        <div>
+            <h1>{{ client }}</h1>
+            <h1>Name: {{ client.first_name }}</h1>
+            <h1>Surname: {{ client.last_name }}</h1>
+            <h1>Email: {{ client.mail }}</h1>
+            <h1>Phone: {{ client.phone_number }}</h1>
+        </div>
+        <div>
+            <a href="{% url 'client:dele' client.pk %}">Detail</a>
+        </div>
+        <div>
+            <a href="{% url 'client:client-renting' client.pk %}">Historical rentings</a>
+        </div>
+    </div>
+
+{% endblock %}

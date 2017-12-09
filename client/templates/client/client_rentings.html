@@ -1,0 +1,25 @@
+{% extends 'bike/bike_base.html' %}
+
+{% block title %}
+   {{ client }} | {{ block.super}}
+{% endblock %}
+
+{% block content %}
+    <div>
+        <h1>Client: {{ client.name }}</h1>
+
+        <ol>
+            {% for renting in renting_list %}
+                <li>
+                    <div>
+                        <h3>{{ renting }}</h3>
+                    </div>
+                </li>
+            {% empty %}
+                <li>No such rentings</li>
+            {% endfor %}
+        </ol>
+
+    </div>
+
+{% endblock %}

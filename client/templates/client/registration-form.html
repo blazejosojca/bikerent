@@ -1,0 +1,22 @@
+{% extends "musicapp/base.html" %}
+{% block title %}Album Add{% endblock %}
+{% block albums_active %}active{% endblock %}
+
+{% block body %}
+<div class="container-fluid">
+
+    <div class="row">
+                    <h2> Create a New Account </h2>
+                <form class="form-horizontal" action="" method = "post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {% include 'client/form_template.html' %}
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button type="submit" class="btn btn-success">Do it!</button>
+                        </div>
+                    </div>
+                </form>
+    </div>
+</div>
+
+{% endblock %}

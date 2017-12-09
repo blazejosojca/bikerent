@@ -1,0 +1,46 @@
+{% extends 'bike/bike_base.html' %}
+
+{% block title %}
+    Bike4All | {{ block.super}}
+{% endblock %}
+
+
+{% block content %}
+
+<h4>Clients:</h4>
+    <!-- Details of bike -->
+        <ol>
+            {% for client in client_list %}
+                <li>
+                    <div>
+                        <h3>{{ client }}</h3>
+                        <div>
+                            <!-- Details -->
+                            <a href="{% url 'client:client-detail' client.pk %}">Detail</a>
+                            <!-- Tech info -->
+                        </div>
+                        <div>
+                            <!-- Rentings -->
+                            <a href="{% url 'client:client-renting' client.pk %}">Historical rentings</a>
+                        </div>
+
+                    </div>
+                </li>
+            {% empty %}
+                <li>No such clients</li>
+            {% endfor %}
+        </ol>
+
+    <div>
+        <h4>Add new client</h4>
+        <!-- Add client -->
+        <a href="{% url 'client:client-create' %}">Add</a>
+    </div>
+
+    <div>
+        <h4>Rentings</h4>
+        <a href="{% url 'bike:create-bike-renting' %}">Rent a bike</a>
+        <a href="{% url 'bike:list-bike-renting' %}">Show rentings</a>
+    </div>
+
+{% endblock %}
