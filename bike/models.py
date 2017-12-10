@@ -49,9 +49,7 @@ class Bike(models.Model):
 
 
 class Renting(models.Model):
-    related_bike = models.ForeignKey(Bike,
-                                     limit_choices_to=Q(renting__return_date__isnull=True) &
-                                                      Q(renting__rented__isnull=True))
+    related_bike = models.ForeignKey(Bike)
     related_client = models.ForeignKey(Client)
     start_date = models.DateField(default=date.today)
     start_time = models.TimeField(default=now)
@@ -71,6 +69,7 @@ class Renting(models.Model):
                                     self.related_client,
                                     self.start_date,
                                     self.return_date)
+
 
 
 class Localization(models.Model):

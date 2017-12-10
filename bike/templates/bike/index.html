@@ -3,26 +3,24 @@
     HomePage | {{ block.super}}
 {% endblock %}
 
-
 {%  block content %}
-   {{ info }}
 
-    <header>
-    Login
-    </header>
-    <h3>Witamy</h3>
+    <h3>Bike4ALL</h3>
 
     <div>
-            <div>
-            <a href="{% url 'bike:bike-list' %}">View bikes</a>
+            <div class="thumbnail">
+                <a href="{% url 'bike:bike-list' %}">Bikes</a>
             </div>
-            <div>
+            <div class="thumbnail">
                 <a href="{% url 'client:client-list' %}">Clients</a>
             </div>
-            <div>
+            <div class="thumbnail">
                 <a href="{% url 'bike:local-list' %}">Localizations</a>
             </div>
-        </div>
+            <div class="thumbnail">
+                <a href="{% url 'bike:list-bike-renting' %}">Rentings</a>
+            </div>
+    </div>
 
 {% endblock %}
 

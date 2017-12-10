@@ -7,7 +7,7 @@
 
 {% block content %}
 
-<h4>Rentings:</h4>
+<h4>Rentings</h4>
     <!-- List of renting -->
         <ol>
             {% for renting in renting_list %}
@@ -24,10 +24,6 @@
                             <!-- Delete -->
                             <a href="{% url 'bike:delete-bike-renting' renting.pk %}">Delete</a>
                         </div>
-                        <div>
-                            <!-- Update bike -->
-                            <a href="{% url 'bike:edit-bike-renting' renting.pk %}">Update</a>
-                        </div>
 
                     </div>
 
@@ -37,10 +33,6 @@
             <div>
                 <h4>Create a new renting</h4>
                 <a href="{% url 'bike:create-bike-renting' %}">Rent a bike</a>
-            </div>
-            <div>
-                <h4>Show all active renting</h4>
-                <a href="{% url 'bike:list-bike-renting' %}">Show active renting</a>
             </div>
         </div>
 {% endblock %}

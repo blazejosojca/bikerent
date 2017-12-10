@@ -9,12 +9,14 @@ from django.views.generic import (
     DeleteView,
 )
 from django.urls import reverse_lazy
+from client.models import Client
 from .models import Bike, Localization, Renting
 from .forms import (
     BikeFormCreate,
     BikeFormUpdate,
     RentingForm,
-    LocalizationForm
+    LocalizationForm,
+    RentingUpdateForm,
 )
 
 
@@ -69,11 +71,10 @@ class CreateRentingBikeView(CreateView):
     model = Renting
     template_name = 'bike/renting_form.html'
     form_class = RentingForm
-    success_url = reverse_lazy('bike:list-bike-renting')
-
+    success_url = reverse_lazy('bike:list-bike-rentings')
 
 class ListRentingBikeView(ListView):
-    template_name = "bike/renting_list.html"
+    template_name = "bike/renting-list.html"
     ctx = "renting_list"
 
     def get_queryset(self):
@@ -83,7 +84,7 @@ class ListRentingBikeView(ListView):
 class UpdateRentingBikeView(UpdateView):
     model = Renting
     template_name = 'bike/renting_form.html'
-    form_class = RentingForm
+    form_class = RentingUpdateForm
     success_url = reverse_lazy('bike:list-bike-renting')
 # TODO stworzyć widok edycji wypożyczenia bez generyków, ściągać id roweru
 
@@ -101,11 +102,9 @@ class HistoryBikeView(View):
         return render(request, self.template_name, {'bike': bike,
                                                     'renting_list': Renting.objects.filter(related_bike=pk)})
 
-
-
 class LocalizationsList(ListView):
         template_name = "bike/localizations_list.html"
-        ctx = "locals_list"
+        ctx = "localization_list"
 
         def get_queryset(self):
             return Localization.objects.all()

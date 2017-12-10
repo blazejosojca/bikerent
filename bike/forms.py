@@ -1,5 +1,7 @@
 from bike.models import Bike, Localization, Renting, Client
 from django import forms
+from .models import Bike
+
 
 
 class BikeFormCreate(forms.ModelForm):
@@ -27,6 +29,12 @@ class LocalizationForm(forms.ModelForm):
 
 class RentingForm(forms.ModelForm):
 
+    class Meta:
+        model = Renting
+        fields = '__all__'
+
+
+class RentingUpdateForm(forms.ModelForm):
     class Meta:
         model = Renting
         fields = '__all__'

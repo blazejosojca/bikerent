@@ -1,13 +1,12 @@
-{% extends 'bike/bike_base.html' %}
+{% extends 'bike/bike_base.html' %} {% load crispy_forms_tags %}
 
 {% block title %}
-    Bike4All | {{ block.super}}
+   {{ bike.producer_name }} {{ block.super }}
 {% endblock %}
-
 
 {% block content %}
 
-<h4>Bikes</h4>
+<h4>rentings</h4>
     <!-- Details of bike -->
             {% for bike in bike_list %}
                 <ol>

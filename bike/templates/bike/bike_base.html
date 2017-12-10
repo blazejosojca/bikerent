@@ -16,26 +16,43 @@
         <link rel="stylesheet" href="{% static '' %}">
     </head>
     <body>
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
 
-        <div class="page-header">
-            <h1>Bike4All</h1>
-            <div>
-            <span>
-            <a href="{% url 'index' %}">Home</a>
-            </span>
+        <!-- Header -->
+        <header>
+            <div class="header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#topNavBar">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                <div>
+                    <h1>
+                        <a class="navbar-brand" href="{% url 'index' %}">Bike4all</a>
+                    </h1>
+                </div>
+                <div class="nav navbar-nav navbar-right">
+                    {% if user.is_authenticated %}
+                    {{ user.username|upper }}
+                        <a href=""> Wyloguj</a>
+                    {% else %}
+                        <a href="">
+                        <span class="glyphicon glyphicon-off" aria-hiden="true"></span>Zaloguj</a>
+                    {% endif %}
+                </div>
             </div>
-
-        </div>
+        </header>
 
         <div class=content container">
-        <br/>
-            {% block content %}
-            {% endblock %}
         </div>
+    </nav>
+        {% block content %}
+        {% endblock %}
 
-        <footer>
-            {{ localization }}
-        </footer>
+    <footer>
+        {{ localization }}
+    </footer>
 
     </body>
 
