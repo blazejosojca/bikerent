@@ -6,8 +6,9 @@
 
 
 {% block content %}
+    {{ request.user }}
 
-    <form action="" method="POST">{% csrf_token %}
+    <form action="" method="POST">{% csrf_token %}>
         {{ form }}
         <input type="submit" value="Sign-In"/>
     </form>

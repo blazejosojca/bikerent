@@ -6,29 +6,25 @@
 
 
 {% block content %}
-
+<div class="thumbnail">
 <h4>Bikes</h4>
+</div>
     <!-- Details of bike -->
             {% for bike in bike_list %}
-                <ol>
                     <div class="thumbnail">
                         <h3>{{ bike }}</h3>
                         <div>
                             <!-- Details -->
-                            <a href="{% url 'bike:bike-detail' bike.pk %}">Detail</a>
-                            <!-- Tech info -->
+                                <a href="{% url 'bike:bike-detail' bike.pk %}">Details</a>
                         </div>
-
                     </div>
-                </ol>
             {% empty %}
                 <li>No such bikes</li>
             {% endfor %}
 
-    <div class="thumbnail">
-        <h4>Add a bike</h4>
+    <div class="center-block">
+            <a href="{% url 'bike:create-bike' %}">Add new bike</a>
         <!-- Add bike -->
-        <a href="{% url 'bike:create-bike' %}">Add</a>
     </div>
 
     <div class="thumbnail">

@@ -34,10 +34,10 @@
                 </div>
                 <div class="nav navbar-nav navbar-right">
                     {% if user.is_authenticated %}
-                    {{ user.username|upper }}
-                        <a href=""> Wyloguj</a>
+                        {{ user.username|upper }}
+                        <a href="{% url 'client:logout' %}"> Wyloguj </a>
                     {% else %}
-                        <a href="">
+                        <a href="{% url 'client:login' %}">
                         <span class="glyphicon glyphicon-off" aria-hiden="true"></span>Zaloguj</a>
                     {% endif %}
                 </div>

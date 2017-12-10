@@ -9,9 +9,9 @@
 
 <h4>Rentings</h4>
     <!-- List of renting -->
-        <ol>
+        <div>
             {% for renting in renting_list %}
-                <li>
+                <li class="thumbnail">
                     <div>
                         <div>
                             <h3>{{ renting }}</h3>
@@ -24,11 +24,9 @@
                             <!-- Delete -->
                             <a href="{% url 'bike:delete-bike-renting' renting.pk %}">Delete</a>
                         </div>
-
                     </div>
-
+                </li>
             {% endfor %}
-        </ol>
         <div>
             <div>
                 <h4>Create a new renting</h4>

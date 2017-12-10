@@ -1,13 +1,13 @@
-{% extends 'bike/bike_base.html' %}
+{% extends 'bike/bike_base.html' %} {% load crispy_forms_tags %}
 
 {% block title %}
-    {{ block.super }}
+   {{ localization }} {{ block.super }}
 {% endblock %}
 
 
 {% block content %}
     <form action="" method="POST">{%  csrf_token %}
-    {{ form.as_table }}
-    <input type="submit">
+    {{ form | crispy }}
+    <input type="submit" value="Edit" class="btn btn-default">
     </form>
 {% endblock  %}

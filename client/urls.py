@@ -12,4 +12,6 @@ urlpatterns = [
     url(r'^clients/update/(?P<pk>[0-9]+)/$', views.UpdateClient.as_view(), name="client-update"),
     url(r'^users/$', views.ListUser.as_view(), name="user-list"),
     url(r'^create/user/$', views.CreateMyLoser.as_view(), name="add-loser"),
+    url(r'^login/$', views.LoginView.as_view(), name="login"),
+    url(r'^logout/$', views.LogoutView.as_view(), name="logout"),
 ]

@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.template.response import TemplateResponse
+from django.core.exceptions import PermissionDenied
 from django.views.generic import (
     ListView,
     CreateView,
@@ -19,6 +20,9 @@ from .forms import (
     RentingUpdateForm,
 )
 
+from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.contrib.auth import authenticate
+
 
 def HomepageView(request):
         ctx = {
@@ -37,10 +41,12 @@ class ListBikesView(ListView):
         return Bike.objects.all()
 
 
-class CreateBikeView(CreateView):
+class CreateBikeView(PermissionRequiredMixin, CreateView):
     model = Bike
     form_class = BikeFormCreate
     template_name = 'bike/bike_form.html'
+    permission_required = ['add_bike']
+    raise_exception = True
 
 
 class DetailBikeView(DetailView):
@@ -71,10 +77,11 @@ class CreateRentingBikeView(CreateView):
     model = Renting
     template_name = 'bike/renting_form.html'
     form_class = RentingForm
-    success_url = reverse_lazy('bike:list-bike-rentings')
+    success_url = reverse_lazy('bike:list-bike-renting')
+
 
 class ListRentingBikeView(ListView):
-    template_name = "bike/renting-list.html"
+    template_name = "bike/renting_list.html"
     ctx = "renting_list"
 
     def get_queryset(self):
@@ -100,7 +107,9 @@ class HistoryBikeView(View):
     def get(self, request, pk):
         bike = Bike.objects.get(pk=pk)
         return render(request, self.template_name, {'bike': bike,
+
                                                     'renting_list': Renting.objects.filter(related_bike=pk)})
+
 
 class LocalizationsList(ListView):
         template_name = "bike/localizations_list.html"
@@ -113,23 +122,20 @@ class LocalizationsList(ListView):
 class CreateLocalizationView(CreateView):
     template_name = 'bike/localization_form.html'
     model = Localization
-    fields = ['city',
-              'street',
-              'building_number',
-              'phone_number',
-              'email']
+    form_class = LocalizationForm
     success_url = reverse_lazy('bike:local-list')
-
 
 
 class UpdateLocalizationView(UpdateView):
     model = Localization
     form_class = LocalizationForm
     template_name = 'bike/localization_form.html'
+    success_url = reverse_lazy('bike:local-list')
 
 
-class DeleteLocalizationView(CreateView):
-    pass
+class DeleteLocalizationView(DeleteView):
+    model = Localization
+    success_url = reverse_lazy('bike:local-list')
 
 
 

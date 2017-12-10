@@ -7,7 +7,6 @@ from django.utils.timezone import now
 from client.models import Client
 
 
-
 TYPES = (
     ("Unknown", "unknown"),
     ("city", "city bike"),
@@ -15,11 +14,6 @@ TYPES = (
     ("trekking", "trekking bike"),
     ("mtb", "mountain terrain bike"),
     ("kids", "bike for kids")
-)
-
-POSITION = (
-    ('BOSS', 'boss'),
-    ('SERVICE', 'serviceman'),
 )
 
 
@@ -61,14 +55,14 @@ class Renting(models.Model):
         return reverse("bike:bike_list")
 
     def __str__(self):
-        return "{} {}".format(self.related_bike,
-                              self.related_client)
+        return "{} {} {} {}".format('Bike:', self.related_bike,
+                                    'Client:', self.related_client)
 
     def rent_info(self):
-        return "{} {} {} {}".format(self.related_bike,
-                                    self.related_client,
-                                    self.start_date,
-                                    self.return_date)
+        return "{} {} {} {} {} {} {} {}".format("Bike:", self.related_bike,
+                                                "Client:", self.related_client,
+                                                "From:", self.start_date,
+                                                "To:", self.return_date,)
 
 
 
@@ -89,6 +83,4 @@ class Localization(models.Model):
                                  self.email,
                                  self.phone_number,
                                  )
-
-
 

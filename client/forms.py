@@ -3,6 +3,7 @@ from django import forms
 from .validators import validate_password
 from .models import Client, MyUser
 from django.contrib.auth import get_user_model
+from django.contrib.auth import authenticate
 
 
 class UserAddForm(forms.ModelForm):
@@ -36,6 +37,12 @@ class UserAddForm(forms.ModelForm):
         return username
 
 
+class LoginForm(forms.Form):
+    login = forms.CharField(max_length=64)
+    password = forms.CharField(widget=forms.PasswordInput)
+
+
+
 class UserResetPasswordForm(forms.Form):
     new_password_1 = forms.CharField(widget=forms.PasswordInput, label='New password')
     new_password_2 = forms.CharField(widget=forms.PasswordInput, label='Repeat password')
@@ -44,7 +51,6 @@ class UserResetPasswordForm(forms.Form):
         if self.cleaned_data['new_password_1'] != self.cleaned_data['new_password_2']:
             raise forms.ValidationError('Passwords arent same')
         return self.cleaned_data
-
 
 class ClientForm(forms.ModelForm):
 

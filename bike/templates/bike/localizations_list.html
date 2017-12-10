@@ -7,12 +7,12 @@
 
 
 {% block content %}
-
-<h4>Localizations:</h4>
+<div class="thumbnail">
+<h4>Localizations</h4>
+</div>
     <!-- Details of localization -->
-        <ol>
             {% for localization in localization_list %}
-                <li>
+                <li class="thumbnail">
                     <div>
                         <div>
                             City: {{ localization.city | upper }}
@@ -27,10 +27,10 @@
                             e-mail: {{ localization.email }}
                         </div>
                         <div>
-                            <div>
+                            <div class="btn btn-default">
                             <a href="{% url 'bike:update-localization' localization.pk %}">Edit</a>
                             </div>
-                            <div>
+                            <div class="btn btn-default">
                             <a href="{% url 'bike:delete-localization' localization.pk %}">Delete</a>
                             </div>
                         </div>
@@ -39,6 +39,5 @@
             {% empty %}
                 <li>No such localizations</li>
             {% endfor %}
-        </ol>
 
 {% endblock %}

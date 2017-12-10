@@ -6,18 +6,16 @@
 
 
 {% block content %}
-
-<h4>Clients:</h4>
+<div class="thumbnail">
+<h4>Clients</h4>
+</div>
     <!-- Details of bike -->
-        <ol>
             {% for client in client_list %}
-                <li>
-                    <div>
+                <li class="thumbnail">
                         <h3>{{ client }}</h3>
                         <div>
                             <!-- Details -->
-                            <a href="{% url 'client:client-detail' client.pk %}">Detail</a>
-                            <!-- Tech info -->
+                                <a href="{% url 'client:client-detail' client.pk %}">Detail</a>
                         </div>
                         <div>
                             <!-- Rentings -->
@@ -29,7 +27,6 @@
             {% empty %}
                 <li>No such clients</li>
             {% endfor %}
-        </ol>
 
     <div>
         <h4>Add new client</h4>

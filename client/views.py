@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import get_user_model
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.template.response import TemplateResponse
 from django.views.generic import (
     ListView,
@@ -11,13 +11,13 @@ from django.views.generic import (
     CreateView,
     FormView,
 )
-from django.contrib.auth import authenticate, login
-from .forms import ClientForm, UserAddForm
+from django.contrib.auth import authenticate, login, logout
+from .forms import ClientForm, UserAddForm, LoginForm
 from .models import Client, MyUser
 from bike.models import Renting
 
 
-class CreateClient(View):
+class CreateClient(CreateView):
     model = Client
     form_class = ClientForm
     template_name = 'client/client_form.html'
@@ -60,21 +60,20 @@ class DeleteClient(DeleteView):
     success_url = reverse_lazy('client:client-list')
 
 
-"""
 class LoginView(FormView):
-    model = MyUser
-    form_class = AddUserForm
-    fields = '__all__'
-    success_url = '/'
-    template_name = 'client/form_template.html'
+    form_class = LoginForm
+    success_url = 'index'
+    template_name = 'client/login.html'
 
     def form_valid(self, form):
-        login(self.request, form.user)
-        return redirect(self.get_success_url())
-
-    def get_success_url(self):
-        return reverse('client_list')
-"""
+        username = form.cleaned_data['login']
+        password = form.cleaned_data['password']
+        user = authenticate(self.request, username=username, password=password)
+        if user is not None:
+            login(self.request, user)
+            return redirect(self.success_url)
+        else:
+            return redirect('client:login')
 
 
 class ListUser(ListView):
@@ -82,17 +81,20 @@ class ListUser(ListView):
     template_name = "client/user_list.html"
 
 
-class CreateMyLoser(CreateView):
-    model = MyUser
+class CreateMyLoser(View):
     form_class = UserAddForm
     template_name = 'client/myuser_form.html'
 
-"""
+    def get(self, request):
+        form = self.form_class
+        return render(request, self.template_name, {
+            'form': form,
+        })
+
 
 class LogoutView(View):
 
     def get(self, request):
         logout(request)
-        return redirect("/")
+        return redirect("index")
 
-"""
